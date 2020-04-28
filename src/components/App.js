@@ -40,11 +40,24 @@ class App extends React.Component {
       location.getCurrentPosition((position) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
+        try {
+          fetch(
+            `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.DARKSKY_API_KEY}/${latitude},${longitude}`
+          )
+            .then((res) => res.json())
+            .then((res) => this.setState({ weather: res }));
+        } catch (err) {
+          console.log(err);
+        }
       });
     }
   }
 
   render() {
+    const darkSky = this.state.weather;
+    const place = darkSky && darkSky.timezone && darkSky.timezone.split("/")[1];
+    const daily = darkSky && darkSky.daily && darkSky.daily.data;
+    const today = daily[0];
     return (
       <WeatherWrapper>
         <TodayWeather></TodayWeather>
