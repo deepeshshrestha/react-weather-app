@@ -10,6 +10,9 @@ I created this project to build my own weather app.
 
 * ReactJs
 
+## Demo
+https://deepesh.dev/react-weather-app/
+
 ## Prerequisites
 
 Clone this repository
